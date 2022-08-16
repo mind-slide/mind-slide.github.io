@@ -402,16 +402,6 @@ const Main = () => {
         src="https://img.shields.io/github/stars/mind-slide/mind-slide.github.io?style=social"
       />
       <div
-        className={styles.btn}
-        onClick={(e) => {
-          tempRichText = dataToMindHTML(project.data);
-          setMindImportExportDialog({
-            show: true,
-            import: true,
-          });
-        }}
-      ></div>
-      <div
         id="btn_main_export"
         className={styles.btnExportMind}
         style={{ right: slideWidth }}
