@@ -1,0 +1,526 @@
+.workspace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.node {
+  font-family: 黑体;
+  font-size: 16px;
+  position: absolute;
+  display: inline-block;
+  padding: 0 5px 0 5px;
+  color: black;
+  min-height: 19px;
+  min-width: 19px;
+  border-bottom: 4px solid #2196f3;
+}
+.nodeText {
+  display: inline-block;
+  word-break: break-all;
+  min-height: 15px;
+  min-width: 15px;
+}
+.node > svg {
+  position: absolute;
+  right: 100%;
+  z-index: -1;
+}
+.nodeWrap {
+  position: absolute;
+}
+
+.insert, .appendChild {
+  position: absolute;
+  bottom: 100%;
+  left: 100%;
+  width: 25px;
+  height: 2px;
+  background: gray;
+  transform-origin: 0 0;
+  transform: rotate(45deg);
+}
+.insert::after, .appendChild::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  transform: rotate(45deg);
+  border-right: 10px solid #2196f3;
+  border-bottom: 10px solid transparent;
+}
+.insert {
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+}
+
+.selected {
+  position: absolute;
+  background: white;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 100%;
+  display: flex;
+  transform: translateX(-50%);
+  left: 50%;
+  font-size: 10px;
+  color: white;
+}
+.insertType {
+  position: absolute;
+  bottom: 100%;
+}
+.btnRetrieveNode, .btnAppendChild, .btnRemove, .btnInsertAny, .btnInsert, .btnAddImg, .btnAddDrawing, .btnAddComment {
+  display: flex;
+  width: 80px;
+  padding: 5px 0;
+  margin: 0 5px 10px 5px;
+  justify-content: center;
+  align-items: center;
+  background: #2296f3;
+  cursor: pointer;
+  position: relative;
+  &:after {
+    white-space: nowrap;
+    position: absolute;
+    color: #aaa;
+    left: calc(100% + 10px);
+  }
+}
+.btnRetrieveNode {
+  font-size: 8px;
+}
+.btnAppendChild:hover:after {
+  content: '快捷键Tab';
+}
+.btnInsert:hover:after
+{
+  content: '快捷键Enter';
+}
+.btnAddImg:hover:after
+{
+  content: '可在输入框中粘贴图片和截图';
+}
+.addImgInput {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.nameInput {
+  resize: none;
+  border: 0;
+  padding: 1px 0 0 2px;
+  color: black;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  font-family: 黑体;
+  overflow: hidden;
+  word-break: break-all;
+  background: transparent;
+  font-size: 16px;
+  top: -2px;
+  left: 3px;
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  & > .projectSelect {
+    position: absolute;
+    top: 20px;
+    left: 80px;
+    width: 100px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    height: 25px;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.9);
+    &:before {
+      content: '项目';
+      width: 60px;
+      position: absolute;
+      background-color: rgb(80 171 245);
+      border: 1px solid rgb(80 171 245);
+      color: white;
+      right: 100%;
+      text-align: center;
+      height: 100%;
+      top: -1px;
+    }
+    .projectList {
+      background: rgba(255, 255, 255, 0.9);
+      position: absolute;
+      width: 100%;
+      top: calc(100% + 1px);
+      .projectListItem {
+        &:hover {
+          color: rgb(80 171 245);
+        }
+      }
+    }
+    .projectListItem {
+      position: relative;
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
+      box-sizing: border-box;
+      padding-left: 4px;
+      border-top: 1px solid #eee;
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+      &:last-child {
+        border-bottom: 1px solid #eee;
+      }
+      .btnDeleteProject {
+        &:extend(.btn);
+        padding: 3px!important;
+        position: absolute;
+        height: 18px;
+        line-height: 18px;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    & > .projectListItem {
+      border: 0;
+    }
+    & > .projectListItem:after {
+      content: '';
+      position: absolute;
+      border-top: 6px solid #aaa;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      right: 4px;
+      top: 9px;
+    }
+  }
+}
+.slide {
+  position: relative;
+  margin: 8px;
+  width: 200px;
+  height: 150px;
+  box-shadow: 2px 2px 10px #ddd;
+  &:hover {
+    background: #eee;
+  }
+  &:hover:after{
+    content: '播放';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    color: #aaa;
+    text-align: center;
+    line-height: 80px;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+  }
+  &:fullscreen {
+    background: #aaa;
+    .slideContent {
+      background: white;
+    }
+  }
+  &:fullscreen:after{
+    display: none;
+  }
+  letter-spacing: 1pt;
+}
+.bg1 {
+  position: absolute;
+  left: 0;
+  height: 100%;
+}
+.bg2 {
+  position: absolute;
+  height: 100%;
+  right: 0;
+}
+.slideContent {
+  position: absolute;
+  transform-origin: 0 0;
+  height: 720px;
+  width: 1280px;
+  font-size: 28pt;
+}
+.slideTitle, .slideItem, .slideImg {
+  position: absolute;
+  word-break: break-all;
+}
+.slideView {
+  position: absolute;
+  top: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  right: 0;
+  height: 100%;
+}
+
+.imgStack {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 10px;
+  height: 50px;
+  min-height: 20px;
+}
+.imgWrap {
+  width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+  margin-top: -10px;
+  box-shadow: -1px 1px 3px grey;
+  border: 2px solid white;
+  box-shadow: -1px 1px 3px #bbb;
+  transform: perspective(10px) rotateY(4deg) scale(0.5);
+  transition: all 0.3s;
+  position: relative;
+}
+.imgWrap:first-child {
+  margin-left: 0;
+}
+[data-active] > .imgStack > .imgWrap {
+  margin-left: 2px !important;
+  margin-top: 0px;
+  transform: perspective(10px) rotateY(0deg) scale(1);
+}
+.imgStack img {
+  height: 50px;
+}
+
+.imgBtn {
+  position: absolute;
+  display: none;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  font-size: 15px;
+  color: white;
+  text-shadow: 0 0 3px black;
+  cursor: pointer;
+}
+[data-active] .imgBtn {
+  display: flex;
+}
+
+.spliter {
+  width: 4px;
+  position: absolute;
+  cursor: pointer;
+  top: 0px;
+  height: 100%;
+  background: #eee;
+}
+
+.checkboxList {
+  position: absolute;
+  bottom: 3px;
+  left: 100%;
+  text-shadow: 0 0 3px black;
+  white-space: nowrap;
+}
+.checkboxListItem {
+  margin-top: 0px;
+}
+.share {
+  top: 13px;
+  font-size: 9px;
+  color: black;
+  width: 48px;
+  right: -52px;
+  text-align: right;
+  border-top: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  font-size: 8px;
+  background: #2196f3;
+  color: white;
+  cursor: pointer;
+  min-width: 6px;
+  opacity: 0.8;
+}
+.btnImportMind, .btnExportMind, .zoomIn, .zoomOut {
+  &:extend(.btn);
+  position: fixed;
+  z-index: 1;
+  min-width: 29px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.btnImportMind {
+  top: 20px;
+  margin-right: 67px;
+}
+.btnExportMind {
+  top: 20px;
+  margin-right: 20px;
+}
+
+.zoomIn {
+  left: 20px;
+  bottom: 48px;
+}
+.zoomOut {
+  left: 20px;
+  bottom: 20px;
+}
+
+.mindPreviewDialog, .sharingDialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 10;
+  background: white;
+  box-shadow: 1px 1px 8px #aaa;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  table {
+    border-top: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    border-spacing: 0;
+    tr {
+      border-bottom: 1px solid #aaa;
+    }
+    td, th {
+      border-right: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+    }
+  }
+  [type=radio] {
+    margin-right: 30px;
+  }
+  .mindPreviewTop {
+    height: 30px;
+  }
+  .mindPreviewContent {
+    padding: 0px 0px 10px 0px;
+    flex: 1;
+    overflow: scroll;
+  }
+  .mindPreviewText {
+    width: 100%;
+    padding: 0;
+    border-left: 0;
+    border-right: 0;
+    min-height: 100px;
+  }
+  .importMindSlide {
+    &:extend(.btn);
+    border: 0;
+  }
+}
+.dialog {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  .dialogContent {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 1px 1px 8px #aaa;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+.canvasEditor {
+  position: fixed;
+  outline: none;
+  box-shadow: 0px 0px 8px #aaa;
+  overflow: hidden;
+  top: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  background: white;
+  z-index: 10;
+  & .btn {
+    margin-right: 4px;
+  }
+  & .btn:first-child {
+    margin-left: 4px;
+  }
+}
+.btnColor {
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 3px #aaa;
+}
+
+.flex {
+  display: flex;
+}
+.flex1 {
+  flex: 1;
+}
+
+.btnNote {
+  position: absolute;
+  z-index: 9;
+  font-size: 8px;
+  width: 20px;
+  text-align: center;
+  color: gray;
+  cursor: pointer;
+  .noteArea {
+    display: none;
+  }
+  &:hover {
+    .noteArea {
+      display: inline-block;
+      word-break: break-all;
+      min-width: 100px;
+      max-width: 200px;
+      font-size: 12px;
+      background: #eee;
+      position: absolute;
+      padding: 4px;
+      border: 2px solid #6e6e6e;
+      border-radius: 4px;
+      transform: translateX(4px);
+    }
+  }
+}
