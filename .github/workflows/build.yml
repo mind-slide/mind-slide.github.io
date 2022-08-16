@@ -1,0 +1,27 @@
+name: build
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    container:
+      image:  node:10.16-jessie
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm install
+    - run: npm run build
+    - run: touch out/.nojekyll
+    - name: Deploy to GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v3
+      with:
+        target_branch: gh-pages
+        build_dir: dist
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
