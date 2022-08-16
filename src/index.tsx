@@ -393,6 +393,24 @@ const Main = () => {
       >
         导入
       </div>
+      <img
+        style={{ right: slideWidth + 20, position: 'absolute', bottom: 20, cursor: 'pointer' }}
+        height={20}
+        onClick={() => {
+          window.open('https://github.com/mind-slide/mind-slide.github.io', '_blank');
+        }}
+        src="https://img.shields.io/github/stars/mind-slide/mind-slide.github.io?style=social"
+      />
+      <div
+        className={styles.btn}
+        onClick={(e) => {
+          tempRichText = dataToMindHTML(project.data);
+          setMindImportExportDialog({
+            show: true,
+            import: true,
+          });
+        }}
+      ></div>
       <div
         id="btn_main_export"
         className={styles.btnExportMind}

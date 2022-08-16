@@ -132,7 +132,6 @@ export const MindEditor = ({
     size: { width: 0, height: 0 },
   });
 
-
   const [dragging_data, setDraggingData] = useState(undefined);
   const [dragging_offset, setDraggingOffset] = useState({ x: 0, y: 0 });
   const [showInserMenu, setShowInsertMenu] = useState(false);
