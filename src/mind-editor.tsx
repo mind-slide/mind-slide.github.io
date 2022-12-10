@@ -231,7 +231,8 @@ export const MindEditor = ({
     const path = selectedPath;
     const d = latest.data;
     latest.path = path;
-    latest.input_value = d.getIn([...path, 'name']);
+    const is_root = path.length == 1 && !path[0];
+    latest.input_value = d.getIn(is_root ? ['name'] : [...path, 'name']);
     inputRef!.current!.value = latest.input_value;
     inputRef!.current!.focus();
 
@@ -266,12 +267,12 @@ export const MindEditor = ({
     }
     setSelectedUI({
       show: true,
-      text: d.getIn([...path, 'name']),
+      text: d.getIn(is_root ? ['name'] : [...path, 'name']),
       offset: global_offset,
-      size: compute_text_size(d.getIn([...path, 'name'])),
-      ignore: !!d.getIn([...path, 'ignore']),
-      important: !!d.getIn([...path, 'important']),
-      merge: !!d.getIn([...path, 'merge']),
+      size: compute_text_size(d.getIn(is_root ? ['name'] : [...path, 'name'])),
+      ignore: !!d.getIn(is_root ? ['ignore'] : [...path, 'ignore']),
+      important: !!d.getIn(is_root ? ['important'] : [...path, 'important']),
+      merge: !!d.getIn(is_root ? ['merge'] : [...path, 'merge']),
     });
   }, [offset, scale, selectedPath]);
 
@@ -285,7 +286,7 @@ export const MindEditor = ({
       },
     ) => {
       unselect();
-      const new_path = [...latest.path_preserved, 'children'];
+      const new_path = latest.path_preserved.length == 1 && !latest.path_preserved[0] ? ['children'] : [...latest.path_preserved, 'children'];
       const new_data = latest.data.updateIn(new_path, (list) =>
         list.push(fromJS(d)),
       );
@@ -682,7 +683,9 @@ export const MindEditor = ({
     e.currentTarget.style.height = `${size.height}px`;
     setData(
       latest.data.setIn(
-        [...latest.path_preserved, 'name'],
+        latest.path_preserved.length === 1 && !latest.path_preserved[0]
+          ? ['name']
+          : [...latest.path_preserved, 'name'],
         e.currentTarget.value,
       ),
     );
